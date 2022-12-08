@@ -1,4 +1,5 @@
 version: "1"
+
 project:
   name: ${scm.git.repo}
   branch: ${scm.git.branch}
@@ -36,8 +37,8 @@ analyze:
       --all
     ]
 
-
 install:
   coverity:
     version: 2022.9.0
+
 serverUrl: https://csprod.polaris.synopsys.com
