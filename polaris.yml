@@ -1,0 +1,44 @@
+version: "1"
+
+project:
+  name: ${scm.git.repo}
+  branch: ${scm.git.branch}
+  revision:
+    name: ${scm.git.commit}
+    date: ${scm.git.commit.date}
+
+
+capture:
+  build:
+    cleanCommands:
+    - shell: [mvn, -B, -f, pom.xml, clean]
+    buildCommands:
+    - shell: [mvn, -B, -f, pom.xml, install]
+
+analyze:
+  mode: central
+  coverity:
+    cov-analyze: [
+      --webapp-security,
+      --security,
+      --concurrency,
+      --enable-constraint-fpp,
+      --enable-audit-mode,
+      --enable, DC.STRING_BUFFER,
+      --enable, ENUM_AS_BOOLEAN,
+      --enable, HARDCODED_CREDENTIALS,
+      --enable, HFA, 
+      --enable, LOCK_INVERSION, 
+      --enable, ODR_VIOLATION, 
+      --enable, ORM_LOST_UPDATE,
+      --enable, XML_INJECTION,
+      --enable, UNENCRYPTED_SENSITIVE_DATA,
+      --aggressiveness-level, high,
+      --all
+    ]
+
+install:
+  coverity:
+    version: 2022.9.0
+
+serverUrl: https://csprod.polaris.synopsys.com
