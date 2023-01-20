@@ -39,6 +39,6 @@ analyze:
 
 install:
   coverity:
-    version: 2022.9.0
+    version: 2022.9.2
 
 serverUrl: https://csprod.polaris.synopsys.com
